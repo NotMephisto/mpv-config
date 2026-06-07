@@ -19,13 +19,12 @@ jobs:
           curl -sSL "https://raw.githubusercontent.com/Samillion/ModernZ/main/modernz.lua" -o scripts/modernz.lua
           curl -sSL "https://raw.githubusercontent.com/Samillion/ModernZ/main/modernz.conf" -o script-opts/modernz.conf
           curl -sSL "https://raw.githubusercontent.com/Samillion/ModernZ/main/modernz-icons.ttf" -o fonts/modernz-icons.ttf
-          curl -sSL "https://raw.githubusercontent.com/Samillion/ModernZ/main/icons/modernz-icons.json" -o scripts/modernz-icons.json
       - name: Commit and push if changed
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           
-          git add scripts/modernz.lua script-opts/modernz.conf fonts/modernz-icons.ttf scripts/modernz-icons.json
+          git add scripts/modernz.lua script-opts/modernz.conf fonts/modernz-icons.ttf
 
           if ! git diff --cached --quiet; then
             git commit -m "chore: sync ModernZ files with upstream"
