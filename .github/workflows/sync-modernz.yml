@@ -1,4 +1,4 @@
-name: Sync ModernZ Script
+name: Sync ModernZ Source
 
 on:
   schedule:
@@ -14,17 +14,21 @@ jobs:
         with:
           ref: linux
 
-      - name: Download latest modernz.lua
+      - name: Download latest ModernZ files
         run: |
           curl -sSL "https://raw.githubusercontent.com/Samillion/ModernZ/main/modernz.lua" -o scripts/modernz.lua
-
+          curl -sSL "https://raw.githubusercontent.com/Samillion/ModernZ/main/modernz.conf" -o script-opts/modernz.conf
+          curl -sSL "https://raw.githubusercontent.com/Samillion/ModernZ/main/modernz-icons.ttf" -o fonts/modernz-icons.ttf
+          curl -sSL "https://raw.githubusercontent.com/Samillion/ModernZ/main/icons/modernz-icons.json" -o scripts/modernz-icons.json
       - name: Commit and push if changed
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git add scripts/modernz.lua
+          
+          git add scripts/modernz.lua script-opts/modernz.conf fonts/modernz-icons.ttf scripts/modernz-icons.json
+
           if ! git diff --cached --quiet; then
-            git commit -m "chore: sync modernz.lua with upstream"
+            git commit -m "chore: sync ModernZ files with upstream"
             git push
           else
             echo "No changes detected."
